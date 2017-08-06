@@ -1,1 +1,1 @@
-# sensor-app-backend-fsharp
+# Real time temperature readings with F# and Elm - backend part
