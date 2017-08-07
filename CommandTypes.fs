@@ -1,4 +1,5 @@
 module CommandTypes
+
 open System
 
 type RegisterTemperatureReading = {

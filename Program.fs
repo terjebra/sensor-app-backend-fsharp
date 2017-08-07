@@ -1,4 +1,5 @@
 ﻿module API
+
 open Suave  
 open Suave.Filters  
 open Suave.Operators  
@@ -12,6 +13,7 @@ open Common
 open CommandHandler
 open Persistence
 open PersistenceTypes
+
 let connection:DbConnection = "User ID=postgres;Password=postgres;Host=127.0.0.1;Port=5432;Database=postgres;Pooling=true;"
 
 let createTemperatureAction request =
@@ -21,9 +23,9 @@ let createTemperatureAction request =
 
 let createRegisterTemperatureCommand action = 
   {
-    Id = System.Guid.NewGuid() 
+    Id = createId
     Action = (RegisterTemperatureReading action)
-    TimeStamp = DateTime.Now
+    TimeStamp = currentTime
   }
 
 let serialize ob = 
@@ -37,14 +39,17 @@ let app =
   let save reading =
     saveTemperatureReading connection reading
 
-  let handler =  commandhandler save
+  let temperatureCommandHandler =  commandhandler save
+
+  let processRegisterTemperatureRequest = createTemperatureAction >> createRegisterTemperatureCommand >> temperatureCommandHandler >> serialize >> mimeTypeJson
+
   choose
       [ GET >=> choose
           [ path "/" >=> OK "Index"
             path "/hello" >=> OK "Hello!" ]
         POST >=> choose
           [
-            path "/temperatures" >=> request(createTemperatureAction >> createRegisterTemperatureCommand >> handler >> serialize >> mimeTypeJson)
+            path "/temperatures" >=> request(processRegisterTemperatureRequest)
           ]
       ]   
 [<EntryPoint>]

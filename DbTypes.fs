@@ -1,4 +1,5 @@
 module DbTypes
+
 open System
 
 type Temperature = {
