@@ -57,11 +57,9 @@ let app =
 
   let temperatureQueryhandler = queryhandler getAll
 
-  let processGetAlleTemperaturesQueryRequest = createTemperaturesQuery |> temperatureQueryhandler |> responseQuery 
-
   choose
       [ GET >=> choose
-          [  path "/temperatures" >=> processGetAlleTemperaturesQueryRequest ]
+          [  path "/temperatures" >=> request( fun req -> createTemperaturesQuery |> temperatureQueryhandler |> responseQuery ) ]
         POST >=> choose
           [
             path "/temperatures" >=> request(processRegisterTemperatureRequest)
