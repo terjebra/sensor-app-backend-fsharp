@@ -1,9 +1,10 @@
 
 module PersistenceTypes
+open System
 
 open DomainTypes
 
-type GetTemperature = ReadingId -> TemperatureReading
+type GetTemperatures = Option<DateTime> -> TemperatureReading list
 
 type SaveTemperature = TemperatureReading ->  TemperatureReading
 

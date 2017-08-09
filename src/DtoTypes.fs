@@ -8,12 +8,12 @@ open CommonTypes
 type TemperatureDto = {
   Id : Guid
   Temperature: float
-  TimeStamp: string
+  Timestamp: string
 }
 
 type RegisterTemperatureDto = {
   Temperature: float
-  TimeStamp: string
+  Timestamp: string
 }
 
 module TemperatureDto  =
@@ -22,7 +22,7 @@ module TemperatureDto  =
     let (Temperature  temperature) = reading.Temperature
     let (RegisteredTime registered) = reading.RegisteredAt
 
-    {Id = id; Temperature = temperature; TimeStamp = registered.ToString()}
+    {Id = id; Temperature = temperature; Timestamp = (toISO8601 registered)}
 
   let createTemperatureReadingRegistered timestamp =
     timestamp 
@@ -47,7 +47,7 @@ module TemperatureDto  =
   let toDomain (dto: RegisterTemperatureDto ) =  
     let mapToErrorList result = result |> Result.mapError (fun err -> [err])
 
-    let temperatureReadingRegisteredResult = dto.TimeStamp |> createTemperatureReadingRegistered |> mapToErrorList
+    let temperatureReadingRegisteredResult = dto.Timestamp |> createTemperatureReadingRegistered |> mapToErrorList
     let temperatureResult = dto.Temperature |> createTemperature |> mapToErrorList
     let idResult = createReadingId |> mapToErrorList
 

@@ -2,5 +2,5 @@ CREATE TABLE public.temperatures
 (
     Id uuid,
     Temperature numeric,
-    Registered date
+    Registered TIMESTAMP WITH TIME ZONE
 )

@@ -20,3 +20,4 @@ let commandhandler
   match command.Action with
     | RegisterTemperatureReading data ->
       saveTemperatureReading saveTemperature (DtoTypes.TemperatureDto.toDomain data)
+      

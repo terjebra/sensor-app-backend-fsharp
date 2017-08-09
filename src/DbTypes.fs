@@ -4,6 +4,6 @@ open System
 
 type Temperature = {
   Id: Guid
-  Temperature: float
+  Temperature: decimal
   Registered: DateTime
 }

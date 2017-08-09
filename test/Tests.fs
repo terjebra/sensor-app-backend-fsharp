@@ -7,7 +7,7 @@ open CommonTypes
 [<Fact>]
 let ``Successfully create domain object from DTO`` () =
     
-    let dto: RegisterTemperatureDto = {Temperature =  23.4; TimeStamp = "2017-07-08 12:00:00"}
+    let dto: RegisterTemperatureDto = {Temperature =  23.4; Timestamp = "2017-07-08 12:00:00"}
 
     let result = DtoTypes.TemperatureDto.toDomain dto
 
@@ -18,7 +18,7 @@ let ``Successfully create domain object from DTO`` () =
 [<Fact>]
 let ``Failing to create domain object from DTO`` () =
     
-    let dto: RegisterTemperatureDto = {Temperature =  23.4; TimeStamp = ""}
+    let dto: RegisterTemperatureDto = {Temperature =  23.4; Timestamp = ""}
 
     let result = DtoTypes.TemperatureDto.toDomain dto
     

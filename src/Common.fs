@@ -11,6 +11,9 @@ let deserialize<'a> string =
 let serialize obj =
   JsonConvert.SerializeObject obj
 
+let toISO8601 (date: DateTime) =
+  date.ToString("o")
+
 let serializeErrors (list: TemperatureError list) = 
   list |> 
     List.map (fun item -> 
@@ -23,15 +26,12 @@ let serializeErrors (list: TemperatureError list) =
 let createId  = System.Guid.NewGuid()
 
 let currentTime = DateTime.Now
-let tryParseDate str = 
-  DateTime.TryParse str
- 
+
 let parseDate str = 
-  let (parsed, date) = tryParseDate str
-  match parsed with
-    | true -> 
+  match DateTime.TryParse str with
+    | (true, date) -> 
         Ok date
-     | false ->
+     | (false, date) ->
        Error "Could not parse date"
 
 let apply fResult xResult =
