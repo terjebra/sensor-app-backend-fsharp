@@ -5,6 +5,6 @@ open DomainTypes
 
 type GetTemperature = ReadingId -> TemperatureReading
 
-type SaveTemperature = TemperatureReading -> unit
+type SaveTemperature = TemperatureReading ->  TemperatureReading
 
 type DbConnection = string
