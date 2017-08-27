@@ -2,6 +2,7 @@ module Common
 
 open Result
 open Newtonsoft.Json
+open Newtonsoft.Json.Serialization
 open System
 open CommonTypes
 
@@ -9,10 +10,14 @@ let deserialize<'a> string =
   JsonConvert.DeserializeObject<'a> string
  
 let serialize obj =
-  JsonConvert.SerializeObject obj
+  JsonConvert.SerializeObject (obj,
+     JsonSerializerSettings(
+        ContractResolver = CamelCasePropertyNamesContractResolver() 
+    ))
 
 let toISO8601 (date: DateTime) =
-  date.ToString("o")
+  date.ToString("s")
+
 
 let serializeErrors (list: TemperatureError list) = 
   list |> 

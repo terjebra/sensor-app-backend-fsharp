@@ -13,4 +13,5 @@ let queryhandler
    (query: TemperatureQuery) 
   : QueryResult =  
     match query with
-      | GetTemperaturesQuery parameter ->  handleGetTemperatures (getTemperatures (None))
+      | GetTemperaturesQuery parameter ->  
+        handleGetTemperatures (getTemperatures (parameter.Date))
